@@ -1,0 +1,1 @@
+BxBlockLanguageoptions::CreateAndUpdateTranslations.call if BxBlockLanguageoptions::ApplicationMessage.table_exists? rescue false

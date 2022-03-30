@@ -1,0 +1,5 @@
+<div class="custom-row">
+  <div class="custom-form-element mr-20">
+    <%= form.grouped_collection_select(:sub_category_id, BxBlockCategories::Category.order(:name), :sub_categories, :name, :id, :name, {}, { class: "form-control", style: "width:50%;", required: true }) %>
+  </div>
+</div>

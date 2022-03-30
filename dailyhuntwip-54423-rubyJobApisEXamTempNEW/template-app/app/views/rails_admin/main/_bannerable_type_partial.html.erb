@@ -1,0 +1,6 @@
+<div class="form-group row">
+  <div class="col-sm-7">
+    <%= form.select :bannerable_type, [['Type',''],['Course', 'BxBlockContentmanagement::Course'], ['Quiz', 'BxBlockContentmanagement::Quiz'], ['Job', 'BxBlockJobs::Job'],['Expert',"BxBlockExperts::CareerExpert"],['Exam','BxBlockContentmanagement::Exam'], ['Assessment', 'BxBlockContentmanagement::Assessment'], ['Article', 'BxBlockContentmanagement::ContentText'], ['Video', 'BxBlockContentmanagement::ContentVideo'], ['Live Stream', 'BxBlockContentmanagement::LiveStream'], ['Audio Podcast', 'BxBlockContentmanagement::AudioPodcast'], ['Study Material', 'BxBlockContentmanagement::Test'], ['Epub', 'BxBlockContentmanagement::Epub']] %>
+  </div>
+</div>
+<%= javascript_include_tag 'content' %>

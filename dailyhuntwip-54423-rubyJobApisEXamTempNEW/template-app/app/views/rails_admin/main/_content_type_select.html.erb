@@ -1,0 +1,7 @@
+ <div class="container max-width-75">
+  <div class="custom-row">
+    <div class="custom-form-element mr-20">
+      <%= form.collection_select(:content_type_ids, BxBlockContentmanagement::ContentType.order(:name), :id, :name, {}, { class: "form-control", :multiple => true, style: "width: 50%;", required: true}) %>
+    </div>
+  </div>
+</div>

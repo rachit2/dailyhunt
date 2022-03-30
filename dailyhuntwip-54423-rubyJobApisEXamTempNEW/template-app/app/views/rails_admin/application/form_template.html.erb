@@ -1,0 +1,19 @@
+<%
+  partial = case @content_type
+  when "Text"
+    "rails_admin/application/text_form"
+  when "Videos"
+    "rails_admin/application/videos_form"
+  when "Live Stream"
+    "rails_admin/application/live_stream_form"
+  when "AudioPodcast"
+    "rails_admin/application/audio_podcast_form"
+  when "Test"
+    "rails_admin/application/test_form"
+  when "Epub"
+    "rails_admin/application/epub_form" 
+  end
+%>
+<%= render partial, content: @contentable, content_name: @content_name %>
+<%= tinymce_assets %>
+<%= javascript_include_tag 'tinymce_custom' %>

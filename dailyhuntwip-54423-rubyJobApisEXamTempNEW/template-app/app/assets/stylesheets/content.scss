@@ -1,0 +1,456 @@
+@import "chosen";
+
+.custom-form-element .form-input-label{
+  margin:10px;
+}
+
+.max-width-75{
+  max-width: 75%;
+}
+
+.content-form input {
+  margin: 10px;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.img_close {
+  color: Black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.video_close {
+  color: Black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.para_button {
+  display: block;
+  margin-top: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 80px;
+  background-color: #428bca;
+  color: white;
+}
+
+.modal_button{
+  display: block;
+  margin-top: 1em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 160px;
+  background-color: #428bca;
+  color: white;
+}
+
+.admin_icon {
+ max-width: 100px;
+ max-height : 100px;
+}
+
+.admin_video{
+  max-width: 200px;
+  max-height : 200px;
+}
+
+.margin-top{
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+.control-label{
+  margin-bottom: 0px;
+}
+.inline-w-50{
+  display: inline-block;
+  width: 50%;
+}
+
+.inline-w-10{
+  display: inline-block;
+  width: 10%;
+}
+
+.padding-12{
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.show_content_msg{
+  position: relative;
+  left: 140px;
+}
+.publish_date_cls{
+  margin-left: -9px;
+}
+.publish_date_cls input{
+  width: 50%;
+  border: 1px solid #ccc;
+  padding-left: 5px;
+}
+ul.chosen-choices li input {
+    height: 30px !important;
+}
+.author_btn{
+  margin-top: -2px;
+}
+.align-input{
+  width: 88%;
+  margin-left: 28px;
+}
+.align-textarea .tox.tox-tinymce {
+  width: 564px !important;
+  margin-left: 38px !important;
+}
+.margin-left-33{
+  margin-left: -33px;
+}
+.submit-btn{
+  text-align: right;
+  width: 63%;
+}
+.custom-row.submit-btn input {
+  padding: 10px 30px;
+  font-size: 18px;
+}
+.main-align-input select{
+  width: 51%;
+  margin-left: 17px;
+}
+.label-fix{
+  width: 21%;
+}
+.destroy_label{
+  margin-left: 97px;
+}
+.choose_input{
+  margin-left: 112px;
+  width: 92%;
+}
+.change_img_label{
+  margin-left: 97px;
+}
+.mr_top_19{
+  margin-top: 19px;
+}
+.change_img_label_for_1{
+  margin-left: -27px;
+}
+.margin-left-119{
+  margin-left: 119px;
+}
+.margin-left-35{
+  margin-left: -35px;
+}
+.change_add_label{
+  margin-left: 103px;
+  margin-top: 7px;
+}
+.margin-left-7{
+  margin-left: -7px;
+}
+.margin-left-125{
+  margin-left: 125px;
+}
+.margin-left-138{
+  margin-left: 138px !important;
+}
+.author_modal_cls{
+ width: 50%;
+}
+.pd-left-12{
+  padding-left: 12px;
+}
+.mr-left-10{
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+.mr-left-35{
+  margin-left: 35px;
+}
+.width-44{
+  width: 44%;
+}
+.inline-author label {
+  width: 10%;
+}
+.inline-author input {
+  width: 85%;
+  display: inline-block;
+}
+.inline-author textarea {
+  width: 85%;
+  display: inline-block;
+}
+.bio-label{
+  position: relative;
+  bottom: 32px;
+}
+.author-image{
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+.mr-top-10{
+  margin-top: 10px;
+}
+.padding-para-btn{
+  padding: 15px 20px 15px 20px;
+  border-radius: 3px;
+}
+.para-align-right{
+  text-align: right;
+}
+.para-align-right h4{
+  display: inline-block;
+  position: relative;
+  right: 97px;
+}
+.searchable_cls{
+  position: relative;
+  right: 10px;
+}
+.tox.tox-tinymce .tox-statusbar{
+  display: none;
+}
+
+.publish_date_cls .field_with_errors:nth-child(1) {
+  width: 12%;
+  display: inline-block;
+  position: relative;
+  left: 25px
+}
+
+.publish_date_cls .field_with_errors input {
+   width: 100%;
+}
+.publish_date_cls .field_with_errors label{
+  width: 82%;
+  position: relative;
+  right: 14px;
+}
+.mr-30{
+  margin-left: 30px !important;
+}
+
+.publish_date_cls .field_with_errors:nth-child(2) {
+  width: 50%;
+  display: inline-block;
+  position: relative;
+}
+.error-msg.red{
+  color: red;
+  margin-left: 36px;
+}
+
+.epub_file_err_msg, .text_image_err_msg, .text_video_err_msg{
+  color: red;
+}
+.change_file_css {
+  margin: 20px 0px 20px 0px;
+  position: relative;
+  left: 130px !important;
+  display: inline-block;
+}
+.change_epub_label{
+  margin-left: 0px;
+}
+.file-label-width{
+  width: 18%;
+  position: relative;
+  top: 9px;
+}
+.epub_choose_file{
+  position: relative;
+  left: 110px;
+}
+.epub_destroy_label{
+  position: relative;
+  left: 10px;
+}
+.margin-left-14{
+  position: relative;
+  left: 14px;
+}
+div.show_select_div {
+  /*width: 400px;*/
+  height: 25px;
+  background-color: white;
+  box-shadow: 1px 2px 3px #ededed;
+  position: relative;
+  border: 1px solid #d8d8d8;
+}
+
+input[type='file'].pdf_select_file {
+  width: 400px;
+  height: 25px;
+  opacity: 0
+}
+
+#val {
+  width: 400px;
+  height: 25px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 13px;
+  line-height: 25px;
+  text-indent: 10px;
+  pointer-events: none;
+}
+
+#button.pdf_select_button {
+  cursor: pointer;
+  display: block;
+  width: 90px;
+  background-color: #428bca;
+  height: 25px;
+  color: white;
+  position: absolute;
+  right: 0;
+  top: 0;
+  line-height: 25px;
+  text-align: center;
+  -webkit-transition: 500ms all;
+  -moz-transition: 500ms all;
+  transition: 500ms all;
+}
+.col_1{
+  float: left;
+  display: block;
+  width:14%;
+}
+
+.clearFix{
+  clear: both;
+}
+.text-white{
+  color: #ffffff !important;
+}
+.col_4{
+  float: left;
+  display: block;
+  width:41%;
+}
+.change_file_btn_in1{
+  left: 352px;
+}
+
+.pdf_change_file_div {
+  position: relative;
+  left: 113px;
+}
+.destroy_btn_cls{
+  width: 26% !important;
+}
+.width-55{
+  width: 55%;
+}
+
+.main-div_cls{
+  position: relative;
+  left: 66px;
+}
+
+.file_label_cls{
+  text-align: right;
+  position: relative;
+  top: 3px;
+  right: 126px;
+}
+.col_1.col_1_width {
+    width: 19%;
+}
+.pdf_link{
+  position: relative;
+  left: -4px !important;
+  width: 100%;
+}
+.destroy_margin-left{
+  left: 119px !important;
+  position: relative;
+}
+.pdf_change_file_div_in1{
+  position: relative;
+  left: 112px;
+}
+
+.margin-left-0{
+  margin-left: 0px;
+}
+.destroy_text_btn{
+  float: none;
+  display: inline-block;
+  position: relative;
+  left: 63px;
+  bottom: 26px;
+  width: 100%;
+}
+.display_block{
+  display: block;
+}
+.text_form_div{
+  position: relative;
+  left: 119px;
+  width: 90%;
+}
+.width-80{
+  width: 80%;
+}
+.image_align{
+  position: relative;
+  bottom: 15px;
+  left: 132px;
+}
+.img_bottom{
+  bottom: 13px;
+  position: relative;
+}
+
+.select_img, .select_video{
+  width: 76%;
+  position: relative;
+  left: 0;
+}

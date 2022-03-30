@@ -1,0 +1,77 @@
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Seperate Section</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <%= text_field_tag "bx_block_contentmanagement_content[contentable_attributes][separate_section]", content.present? ? content.separate_section : '', :class => 'form-control'%>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Exam*</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+    <%= select_tag "bx_block_contentmanagement_content[contentable_attributes][exam_id]", options_from_collection_for_select(BxBlockContentmanagement::Exam.order(:heading), "id", "heading", content&.exam_id),{ include_blank: "Select None", class: "form-control inline-w-50" }%>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Expert*</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+    <%= select_tag "bx_block_contentmanagement_content[contentable_attributes][career_expert_id]", options_from_collection_for_select(BxBlockExperts::CareerExpert.order(:name), "id", "name", content&.career_expert_id),{ include_blank: "Select None", class: "form-control inline-w-50" }%>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Headline*</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <%= text_field_tag "bx_block_contentmanagement_content[contentable_attributes][headline]", content.present? ? content.headline : '', :class => 'form-control', required: true %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label">Description*</label>
+  <div class="col-sm-7">
+    <div class="align-textarea">
+      <%= text_area_tag "bx_block_contentmanagement_content[contentable_attributes][description]", content.present? ? content.description : '', :class => "tinymce", :rows => 40, :cols => 120 %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <%= label_tag "Thumbnail", nil, :class => "col-sm-1 control-label mr_top_19" %>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <% if content&.image.present? && !content&.image.new_record? %>
+        <%= image_tag(content.image.image_url, class: 'admin_icon') %>
+      <% end %>
+      <%= file_field_tag "bx_block_contentmanagement_content[contentable_attributes][image_attributes][image]" %>
+    </div>
+    <br>
+  </div>
+</div>
+
+<div class="form-group row">
+  <%= label_tag "Video", nil, :class => "col-sm-1 control-label mr_top_19" %>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <% if content&.video.present? && !content&.video.new_record? %>
+        <%= video_tag(content.video.video_url, class: "admin_video", :controls => true) %>
+      <% end %>
+      <%= file_field_tag "bx_block_contentmanagement_content[contentable_attributes][video_attributes][video]" %>
+    </div>
+    <div class="error-msg red"></div>
+      <br>
+  </div>
+</div>
+
+<%= hidden_field_tag "time_duration", content.present? ? nil : "0" %>
+<%= hidden_field_tag "video_size", content.present? ? nil : "0" %>
+
+<%= javascript_include_tag 'content_video' %>

@@ -1,0 +1,14 @@
+<%= stylesheet_link_tag 'content' %>
+
+<div class="form-group row">
+  <div class="col-sm-7">
+    <% if form.object.present? && form.object&.login_background_file&.present? && !form.object&.login_background_file&.new_record? && form.object.mime_type.present? %>
+      <% if  form.object.mime_type.include?("video") %>
+        <%= video_tag(form.object.login_background_file.login_background_file_url, class: "admin_video", :controls => true) %>
+      <% elsif form.object.mime_type.include?("image") %>
+        <%= image_tag(form.object.login_background_file.login_background_file_url, class: 'admin_icon') %>
+      <% end %>
+    <% end %>
+    <%= file_field_tag "bx_block_login_application_config[login_background_file_attributes][login_background_file]" %><br>
+  </div>
+</div>

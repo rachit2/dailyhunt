@@ -1,0 +1,252 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<%= stylesheet_link_tag 'content' %>
+
+<div class="content-form">
+  <div class="row" >
+    <div class="form-column column-left" >
+      <%= form_with(model: @content, url: create_content_path, method:"post", id: "daterange_form", data: {remote: false}) do |f| %>
+        <div class="container max-width-75">
+          <div class="custom-row">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'category*', class: "form-input-label inline-w-10" %>
+              <%= f.collection_select(:category_id, BxBlockCategories::Category.by_current_user(_current_user).order(:name), :id, :name, { include_blank: "Select None" }, { required: true, class: "form-control inline-w-50" }) %>
+            </div>
+          </div>
+          <%= hidden_field_tag 'content_id', f.object.new_record? ? '' : f.object.id %>
+          <% unless _current_user.super_admin? ||  _current_user.operations_l2? || _current_user.operations_l1? %>
+            <%= hidden_field_tag 'bx_block_contentmanagement_content[admin_user_id]', (f.object.new_record? ? _current_user.id : f.object.admin_user_id) %>
+          <% end %>
+          <%= hidden_field_tag 'bx_block_contentmanagement_content[current_user_id]', _current_user.id %>
+
+          
+          <% content_type_options = f.object.new_record? ? {} : { disabled: true } %>
+          <div class="custom-row">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'sub_category*', class: "form-input-label inline-w-10" %>
+              <%= f.grouped_collection_select(:sub_category_id, BxBlockCategories::Category.by_current_user(_current_user).order(:name), ->(category) { category.sub_categories.by_current_user(_current_user) }, :name, :id, :name, { include_blank: "Select None" }, { required: true, class: "form-control inline-w-50" }) %>
+              <%#= f.grouped_collection_select :sub_category_id, BxBlockCategories::Category.order(:name), :sub_categories,  :name, :id, :name, selected: params[:sub_category_id], :class => 'form-control' %>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'language*', class: "form-input-label inline-w-10" %>
+              <%= f.collection_select(:language_id, BxBlockLanguageoptions::Language.by_current_user(_current_user).order(:name), :id, :name, { include_blank: "Select None" }, { required: true, class: "form-control inline-w-50" }) %>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'content_type*', class: "form-input-label inline-w-10" %>
+              <%= f.collection_select(:content_type_id, BxBlockContentmanagement::ContentType.by_current_user(_current_user).order(:name) , :id, :name, { include_blank: "Select None" }, { required: true, class: "form-control inline-w-50"}.merge(content_type_options)) %>
+            </div>
+          </div>
+
+          <% if _current_user.super_admin? ||  _current_user.operations_l2? || _current_user.operations_l1? %>
+            <div class="custom-row">
+              <div class="custom-form-element padding-12">
+                <%= f.label 'Content Provider', class: "form-input-label inline-w-10" %>
+                <%= f.collection_select(:admin_user_id, BxBlockAdmin::AdminUser.partner_user.order(:email), :id, :email, { include_blank: "Select None" }, { class: "form-control inline-w-50"}) %>
+              </div>
+            </div>
+          <% end %>
+          <h5 class="show_content_msg" style="display: none;">if there is no content provider choosen then current user is selected</h6>
+
+          <div class="custom-row hidden">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'feature_article', class: "form-input-label inline-w-10" %>
+              <%= f.check_box :feature_article %>
+            </div>
+          </div>
+
+          <div class="custom-row hidden" id="featue_video_area">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'feature_video', class: "form-input-label inline-w-10" %>
+              <%= f.check_box :feature_video %>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'is_featured', class: "form-input-label inline-w-10" %>
+              <%= f.check_box :is_featured %>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'is_trending', class: "form-input-label inline-w-10" %>
+              <%= f.check_box :is_trending %>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element padding-12">
+              <%= f.label 'is_popular', class: "form-input-label inline-w-10" %>
+              <%= f.check_box :is_popular %>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element tag-select padding-12">
+              <%= f.label :tag_list, class: "form-input-label inline-w-10" %>
+              <div class="tag_list_cls inline-w-50">
+                <%= f.select :tag_list,
+                ActsAsTaggableOn::Tag.pluck(:name),
+                             { include_blank: true },
+                             { class: 'chosen-select', multiple: true }
+               %>
+              </div>
+            </div>
+          </div>
+
+          <% unless _current_user.operations_l1? %>
+            <div class="custom-row">
+              <div class="custom-form-element padding-12 publish_date_cls">
+                <%= f.label :publish_date, class: "form-input-label inline-w-10" %>
+                <%= f.datetime_field "publish_date" %>
+              </div>
+            </div>
+          <% end %>
+
+          <% unless _current_user.operations_l1? %>
+            <div class="custom-row">
+              <div class="custom-form-element padding-12">
+                <label class="form-input-label inline-w-10">Status* </label>
+                <div class="inline-w-50">
+                  <%= f.select :status, options_for_select(BxBlockContentmanagement::Content.statuses.map { |key, value| [key.capitalize, value] }, BxBlockContentmanagement::Content.statuses[f.object.status]), { include_blank: "Select None" }, { required: true, class: "form-control" } %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+
+          <% if _current_user.operations_l1? and !f.object.new_record? %>
+            <div class="custom-row">
+              <div class="custom-form-element padding-12">
+                <label class="form-input-label inline-w-10">Review Status </label>
+                <div class="inline-w-50">
+                  <%= f.select :review_status, options_for_select({"pending"=>0, "submit_for_review"=>1}.map { |key, value| [key.capitalize, value] }, BxBlockContentmanagement::Content.review_statuses[f.object.review_status]), { include_blank: "Select None" }, {class: "form-control" } %>
+                </div>
+              </div>
+            </div>
+          <% elsif (_current_user.operations_l2?  || _current_user.super_admin?)  && !f.object.new_record? && f.object.admin_user&.operations_l1?  %>
+            <div class="custom-row">
+              <div class="custom-form-element padding-12">
+                <label class="form-input-label inline-w-10">Review Status </label>
+                <div class="inline-w-50">
+                  <%= f.select :review_status, options_for_select(BxBlockContentmanagement::Content.review_statuses.map { |key, value| [key.capitalize, value] }, BxBlockContentmanagement::Content.review_statuses[f.object.review_status]), { include_blank: "Select None" }, { class: "form-control" } %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <% if (_current_user.operations_l2? ||  _current_user.super_admin?) && f.object.admin_user.present? && f.object.admin_user&.operations_l1? %>
+            <div class="custom-row">
+              <div class="custom-form-element padding-12 searchable_cls">
+                <%= f.label :feedback, class: "form-input-label inline-w-10" %>
+                <%= f.text_field :feedback, class: "form-control inline-w-50"%>
+              </div>
+            </div>
+          <% elsif _current_user.operations_l1? && f.object.feedback.present? %>
+            <div class="custom-row">
+              <div class="custom-form-element padding-12 searchable_cls">
+                <%= f.label :feedback, class: "form-input-label inline-w-10" %>
+                <%= f.text_field :feedback, class: "form-control inline-w-50", disabled: true%>
+              </div>
+            </div>
+          <% end %>
+
+          <div class="custom-row" id="author_area">
+            <div class="custom-form-element padding-12">
+              <label for="" class="form-input-label inline-w-10">Author</label>
+              <%= f.collection_select(:author_id, BxBlockContentmanagement::Author.order(:name), :id, :name, { include_blank: "Select None" }, { class: "form-control inline-w-50"}.merge(content_type_options)) %>
+              <% if !content_type_options.present? %>
+                <button type="button" id="author_modal_btn" class="btn btn-primary margin-top author_btn">Create New Author</button>
+              <% end %>
+
+              <%= if BxBlockContentmanagement::ContentType.blog.exists?
+                content_tag(:div, BxBlockContentmanagement::ContentType.blog.first.id, class: "hidden", id: "blog-content-type-id")
+              end %>
+              <%= if BxBlockContentmanagement::ContentType.video_short.exists?
+                content_tag(:div, BxBlockContentmanagement::ContentType.video_short.first.id, class: "hidden", id: "video-short-content-type-id")
+              end %>
+              <%= if BxBlockContentmanagement::ContentType.video_full.exists?
+                content_tag(:div, BxBlockContentmanagement::ContentType.video_full.first.id, class: "hidden", id: "video-full-content-type-id")
+              end %>
+              <!-- The Modal -->
+              <div id="author_modal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content author_modal_cls">
+                  <span class="close" id= "close">&times;</span>
+                  <h1>Create Author</h1>
+                  <div id = "form_error" class = "alert alert-danger"></div>
+                  <%= f.fields_for :author, id: 'author_form' do |form|%>
+                    <div class="align-input modal-inline">
+                      <div class="inline-author">
+                        <%= form.label 'name*', :class => 'pd-left-12' %>
+                        <%= form.text_field :name, :class => 'form-control', :placeholder => 'Author Name', id: 'author_name' %>
+                      </div>
+                      <div class="inline-author mr-top-10">
+                        <%= form.label 'bio*', :class => 'pd-left-12 bio-label' %>
+                        <%= form.text_area :bio, :class => 'form-control mr-left-10', :placeholder => 'Author Bio', id: 'author_bio' %>
+                      </div>
+                      <%= form.hidden_field :url, value: create_author_path, id: 'create_author_url' %>
+                      <div class="inline-author author-image">
+                        <%= form.label :image, :class => 'pd-left-12' %>
+                        <%= form.fields_for :image_attributes do |fi| %>
+                          <%= fi.file_field :image, :class => 'form-control', :placeholder => 'Author Bio', id: 'author_image' %>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="para-align-right">
+                      <button type="button" id="para_button" class="btn btn-primary margin-top author_btn disabled_save_btn">Save</button>
+                    </div>
+                  <% end %>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element padding-12 searchable_cls">
+              <%= f.label :searchable_text, class: "form-input-label inline-w-10" %>
+              <%= f.text_field :searchable_text, class: "form-control inline-w-50"%>
+            </div>
+          </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element padding-12">
+              <%= f.label "Archived" %>
+              <%= f.check_box :archived, class: "inline-w-10 mr-30" %> <br />
+            </div>
+          </div>
+          <div class="field">
+            
+        </div>
+
+          <div class="custom-row">
+            <div class="custom-form-element">
+              <div class="contentable_id">
+                <% if @content_type.present? %>
+                  <%= render template: 'rails_admin/application/form_template' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <br/>
+
+        </div>
+        <div class="container max-width-75">
+          <div class="custom-row submit-btn" >
+              <%= f.submit "Save", class: "btn btn-primary content_save_btn ", id: "save_btn" %>
+            </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<%= javascript_include_tag 'content' %>

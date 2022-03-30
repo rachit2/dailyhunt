@@ -1,0 +1,8 @@
+<div class="form-group row">
+  <div class="col-sm-7">
+    <% if form.present? && form.object&.logo&.image.present? %>
+      <%= image_tag form.object.logo.image_url, class: "admin_icon margin-top" %><br>
+    <% end %>
+    <%= file_field_tag "bx_block_admin_admin_user[partner_attributes][logo_attributes][image]", class: "margin-top" %><br>
+  </div>
+</div>

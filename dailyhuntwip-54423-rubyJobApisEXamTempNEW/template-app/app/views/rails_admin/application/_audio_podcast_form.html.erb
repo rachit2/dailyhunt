@@ -1,0 +1,42 @@
+<div class="form-group row">
+  <%= label_tag "Headline*", nil, :class => "col-sm-1 control-label mr_top_19" %>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <%= text_field_tag "bx_block_contentmanagement_content[contentable_attributes][heading]", content.present? ? content.heading : '', :class => 'form-control', required: true %>
+    </div>  
+  </div>
+</div>
+<br>
+<div class="form-group row">
+  <%= label_tag "Description*", nil, :class => "col-sm-1 control-label" %>
+  <div class="col-sm-7">
+    <div class="align-textarea">
+      <%= text_area_tag "bx_block_contentmanagement_content[contentable_attributes][description]", content.present? ? content.description : '', :class => "tinymce", :rows => 40, :cols => 120 %>
+    </div>   
+  </div>
+</div>
+<br>
+<br>
+<div class="form-group row">
+  <%= label_tag "Cover Image", nil, :class => "col-sm-1 control-label" %>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <% if content.present? && content&.image&.image_url.present? && content&.image&.id.present? %>
+        <%= image_tag(content.image.image_url, class: 'admin_icon') %>
+      <% end %>
+      <%= file_field_tag "bx_block_contentmanagement_content[contentable_attributes][image_attributes][image]" %><br>
+    </div>
+  </div>
+</div>
+<br>
+<div class="form-group row">
+  <%= label_tag "Audio", nil, :class => "col-sm-1 control-label" %>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <% if content.present? && content&.audio&.id.present? %>
+        <%= video_tag(content.audio.audio_url, class: "admin_video", :controls => true) %>
+      <% end %>
+      <%= file_field_tag "bx_block_contentmanagement_content[contentable_attributes][audio_attributes][audio]" %><br>
+    </div>
+  </div>
+</div>

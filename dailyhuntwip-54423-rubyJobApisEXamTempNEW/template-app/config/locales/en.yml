@@ -1,0 +1,41 @@
+
+en:
+  controllers:
+    login:
+      errors:
+        account_not_found: 'Account not found, or not activated'
+        failed_login: 'Login Failed'
+        invalid_type: 'Invalid Account Type'
+    accounts:
+      errors:
+        account_already_activated: 'Account already activated'
+        phone_not_found: 'Phone Number Not Found'
+        account_not_found: 'Account Not Found'
+        account_activated_successfully: 'Account Activated Successfully'
+        phone_number_not_verified_yet: 'Phone Number Not Verified Yet'
+        invalid_type: 'Invalid Account Type'
+        pin_has_expired: 'This Pin has expired, please request a new pin code.'
+        phone_already_activated: 'Phone Number Already Activated'
+        phone_number_confirmed: 'Phone Number Confirmed Successfully'
+        invalid_pin: 'Invalid Pin for Phone Number'
+        email_invalid: 'Email is Invalid'
+    passwords:
+      errors:
+        invalid_token: 'Invalid token'
+        token_invalid: 'Token invalid'
+        otp_not_validated: 'OTP code not validated'
+        password_change_failed: 'Password change failed'
+        token_password_required: 'Token and new password are required'
+        otp_has_expired: 'OTP has expired, please request a new one.'
+        otp_validation_success: 'OTP validation success'
+        token_otp_required: 'Token and OTP code are required'
+    application:
+      errors:
+        record_not_found: 'Record not found'
+  notifications:
+    idle_user:
+      title: 'Careerhunt'
+      body: 'Hi, Please Visit App'
+    complete_profile:
+      title: 'Careerhunt'
+      body: 'Complete Your Profile'

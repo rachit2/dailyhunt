@@ -1,0 +1,7 @@
+<div class="form-group row">
+  <div class="col-sm-7">
+    <%= form.hidden_field :selected_bannerable_id, value: form.object.bannerable_id %>
+    <%= form.select :bannerable_id, [] %>
+  </div>
+</div>
+<%= javascript_include_tag 'content' %>

@@ -1,0 +1,7 @@
+<%= form_with(url: send_excel_path, method: "post", id: "import_excel", local: true) do |f| %>
+<p>
+  <label>Select File</label>
+  <%= f.file_field 'upload', required: true %></p>
+  <%= submit_tag "Import Translations", class: "btn btn-primary" %>
+<% end %><br>
+<%= link_to "Export Translations", export_translation_excel_url, class: "btn btn-primary",target: "_blank", id: "export_xlsx";%>

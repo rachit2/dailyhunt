@@ -1,0 +1,87 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Headline*</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <%= text_field_tag "bx_block_contentmanagement_content[contentable_attributes][heading]", content.present? ? content.heading : '', :class => 'form-control', required: true %>
+    </div>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label">Description*</label>
+  <div class="col-sm-7">
+    <div class="align-textarea">
+      <%= text_area_tag "bx_block_contentmanagement_content[contentable_attributes][description]", content.present? ? content.description : '', :class => "tinymce", :rows => 40, :cols => 120 %>
+    </div>
+  </div>
+</div>
+<br>
+<div class="form-group row">
+  <%= label_tag "Thumbnail", nil, :class => "col-sm-1 control-label" %>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <% if content.present? && content&.image&.image_url.present? && content&.image&.id.present? %>
+        <%= image_tag(content.image.image_url, class: 'admin_icon') %>
+      <% end %>
+      <%= file_field_tag "bx_block_contentmanagement_content[contentable_attributes][image_attributes][image]" %><br>
+    </div>
+  </div>
+</div>
+<br>
+<div class="form-group row">
+  <%= label_tag "Files", nil, :class => "col-sm-2" %>
+  <div class="col-sm-7" id="file_div">
+    <div class="row">
+      <button type="button" id="add_file" class="btn btn-primary">Add File</button>
+    </div>
+    <div class="row">
+      <span class="epub_file_err_msg"></span>
+    </div>
+    <% content&.pdfs&.each_with_index do |pdf, i| %>
+      <% if !pdf.new_record? %>
+        <div class="row margin-top">
+          <div> <%= link_to "#{pdf.pdf&.file&.filename}", pdf.pdf_url %> </div>
+          <%= hidden_field_tag "bx_block_contentmanagement_content[contentable_attributes][pdfs_attributes][#{pdf.id}][id]", pdf.id, :class => 'form-control'%>
+
+          <div class="row">
+            <div class="col-sm-10 show_select_div">
+              <input type='file' name="bx_block_contentmanagement_content[contentable_attributes][pdfs_attributes][<%= pdf.id %>][pdf]" class="pdf_select_file"> <span id='val'></span>
+              <span id='button' class="pdf_select_button">Change File</span>
+            </div>
+
+            <div class="col-sm-2">
+              <span class="btn btn-sm btn-default destroy_btn">
+                Delete
+              </span>
+              <%= hidden_field_tag "bx_block_contentmanagement_content[contentable_attributes][pdfs_attributes][#{pdf.id}][_destroy]", false, :class => 'form-control destroy_val' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <%= hidden_field_tag "pdf_index", content&.pdfs&.count %>
+  </div>
+  <br>
+</div>
+
+
+
+<div class="form-group" id= "new_file">
+  <div class="row margin-top" id= <%= "new_file_0"%>>
+    <div class="row">
+      <div class="col-sm-10 show_select_div">
+        <input type='file' name="bx_block_contentmanagement_content[contentable_attributes][pdfs_attributes][][pdf]" class="pdf_select_file" id="file"> <span id='val'></span>
+        <span id='button' class="pdf_select_button">Select File</span>
+      </div>
+      <div class="col-sm-2">
+        <span class="btn btn-sm btn-danger text-white" onclick='close_file_modal(this.id)' id= <%= "close_file_0"%>>
+          Cancel
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%= javascript_include_tag 'epub' %>

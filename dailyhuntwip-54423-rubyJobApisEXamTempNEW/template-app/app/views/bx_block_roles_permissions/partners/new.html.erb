@@ -1,0 +1,120 @@
+<head>
+    <%= stylesheet_link_tag "application", media: "all" %>
+  </head>
+<div>
+
+  <div class="parent">
+    <div class="center">
+       <h1>Partner SignUp</h1>
+      <div class="custom-panel">
+        <% if @admin_user.errors.present? %>
+          <div class="alert alert-danger text-center">
+            <%= "#{@admin_user.errors.full_messages.to_sentence}" %>
+          </div>
+        <% end %>
+        <%#= form_for @admin_user, (url: "/bx_block_roles_permissions/partners", method: "post") do |f| %>
+        <%#= form_for @admin_user, :url => {:controller => "partners", :action => "create", method: "post"} do |f| %>
+        <%= form_for @admin_user, as: :bx_block_admin_admin_user, url: Rails.application.routes.url_helpers.bx_block_roles_permissions_partners_path, html: { class: "new_post", id: "new_post" } do |f| %>
+
+          <div class="container max-width-75">
+            <div class="custom-row">
+              <div class="custom-form-element mr-20">
+                <%= f.label :email, class: "form-input-label" %> *
+                <%= f.text_field :email, class: "form-control cls_terms_condition" %>
+              </div>
+            </div>
+          </div>
+
+          <%= f.fields_for :partner do |form| %>
+            <div class="container max-width-75">
+              <div class="custom-row">
+                <div class="custom-form-element mr-20">
+                  <%= form.label :name, class: "form-input-label" %> *
+                  <%= form.text_field :name,class: "form-control cls_terms_condition" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="container max-width-75">
+              <div class="custom-row">
+                <div class="custom-form-element mr-20">
+                  <%= form.label :address, class: "form-input-label" %> *
+
+                  <%= form.text_field :address,class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="container max-width-75">
+              <div class="custom-row">
+                <div class="custom-form-element mr-20">
+                  <%= form.label :spoc_name, class: "form-input-label" %> *
+                  <%= form.text_field :spoc_name,class: "form-control cls_terms_condition" %>
+                </div>
+              </div>
+            </div>
+            <div class="container max-width-75">
+              <div class="custom-row">
+                <div class="custom-form-element mr-20">
+                  <%= form.label :spoc_contact, class: "form-input-label" %> *
+                  <%= form.text_field :spoc_contact,class: "form-control cls_terms_condition" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="container max-width-75">
+              <div class="custom-row">
+                <div class="custom-form-element mr-20">
+                  <%= form.label :category, class: "form-input-label" %> *
+                  <%= form.collection_select(:category_ids, BxBlockCategories::Category.order(:name), :id, :name, { include_blank: "Select None" }, { class: "form-control", :multiple => true  }) %>
+                </div>
+              </div>
+            </div>
+            <div class="container max-width-75">
+              <div class="custom-row">
+                <div class="custom-form-element mr-20">
+                  <%= form.label :sub_category, class: "form-input-label" %> *
+                  <%= form.grouped_collection_select(:sub_category_ids, BxBlockCategories::Category.order(:name), :sub_categories, :name, :id, :name, { include_blank: "Select None" }, { class: "form-control", :multiple => true }) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="container max-width-75">
+              <div class="custom-row">
+                <div class="custom-form-element mr-20">
+                  <%= form.label :content_type, class: "form-input-label" %> *
+                  <%= form.collection_select(:content_type_ids, BxBlockContentmanagement::ContentType.order(:name), :id, :name, { include_blank: "Select None" }, { class: "form-control", :multiple => true}) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="container max-width-75">
+              <div class="custom-row" id="partner_agreement">
+                <div class="custom-form-element mr-20">
+                  <%= check_box_tag :terms_and_condition %>
+                  <%= form.label 'I accept ', class: "form-input-label" %><%= link_to ' Terms and Condition', "javascript:void(0)", class: 'terms_condition check_terms_and_condition' %>
+                </div>
+              </div>
+            </div>
+
+            <div class="container max-width-75">
+              <div class="error-msg red"></div>
+            </div>
+          <%end%>
+
+          <div class="container max-width-75">
+            <div class="custom-row" >
+              <%= f.button "Request for Signup", class: "custom-button request_sign_up_btn", id: "save_btn" %>
+            </div>
+            <div class="custom-row" >
+              <%= link_to "Cancel", Rails.application.routes.url_helpers.root_path, class: 'wd-100 btn btn-secondary' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<%= javascript_include_tag 'content' %>

@@ -1,0 +1,21 @@
+<%= stylesheet_link_tag "import_data", media: "all" %>
+<%= form_with(url: bulk_upload_path, method: "post", id: "bulk_upload_excel", local: true) do |f| %>
+  <label class = "inline">Select File</label>
+  <%= f.file_field 'upload', required: true, class: "inline" %>
+  <%= submit_tag "Import Data", class: "btn btn-primary inline" %>
+  <%= link_to "Download Template",download_template_url, class: "btn btn-primary inline",target: "_blank", id: "export_xlsx";%>
+  <h4>For Getting Started, Download the template and modify it, Then upload it for Bulk Importing Data.</h4><br>
+<% end %>
+
+<% if @errors.present? %>
+  <h4>Their was some errors in saving the Data, Please resolve below errors and upload again:</h4>
+  <ul class="show_bulk_upload_errors">
+    <% @errors.each do |error| %>
+      <li><%= error %></li>    
+    <%end%>
+    <% if @errors.count > 9 %>
+      <div class="show_error_btn"><a href='#' class="btn btn-primary">show more</a></div>
+    <% end %>
+  </ul>
+<% end %>
+<%= javascript_include_tag 'import_data' %>

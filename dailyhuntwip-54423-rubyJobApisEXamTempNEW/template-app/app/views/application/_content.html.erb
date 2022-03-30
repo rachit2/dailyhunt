@@ -1,0 +1,56 @@
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<%= form_with(model: BxBlockContentmanagement::Content, url: categories_url, method:"post", id:"content_management_form", class: "custom-hidden") do |f|%>
+<% end %>
+
+
+<div class="<%= "row #{user_class}" %>" >
+ <div class="form-column column-left" >
+    <%= form_with(local: Content.new, url: content_management_url, method: "get", id: "daterange_form") do |f| %>
+      <div class="custom-row">
+        <div class="custom-form-element">
+          <label class="form-input-label">Category : </label>
+          <%= f.collection_select :category_id, BxBlockCategories::Category.order(:name), :id, :name, selected: params[:category_id] %>
+        </div>
+      </div>
+
+      <div class="custom-row">
+        <div class="custom-form-element">
+          <label class="form-input-label">Sub Category : </label>
+          <%= f.collection_select :category_id, BxBlockCategories::SubCategory.order(:name), :id, :name, selected: params[:sub_category_id] %>
+        </div>
+      </div>
+
+      <div class="custom-row">
+        <div class="custom-form-element">
+          <label class="form-input-label">Language : </label>
+          <%= f.collection_select :category_id, BxBlockLanguageoptions::Language.order(:name), :id, :name, selected: params[:language_id] %>
+        </div>
+      </div>
+
+      <div class="custom-row">
+        <div class="custom-form-element">
+          <label class="form-input-label">Content Type : </label>
+          <%= f.collection_select :category_id, BxBlockContentmanagement::ContentType.order(:name), :id, :name, selected: params[:content_type_id] %>
+        </div>
+      </div>
+
+      <div class="custom-row">
+        <div class="custom-form-element">
+          <label class="form-input-label">Contentable : </label>
+          <%= render partial "rails_admin/main/content_template" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="column margin_style" >
+    <%= f.submit "Save", class: "btn btn-primary ",target: "_blank", id: "save_btn" %>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<%= javascript_include_tag 'content', 'data-turbolinks-track': 'reload' %>

@@ -1,0 +1,11 @@
+<%= stylesheet_link_tag 'content' %>
+
+<div class="form-group row">
+  <div class="col-sm-7">
+    <% if  object.mime_type.include?("video") %>
+      <%= video_tag(object.login_background_file.login_background_file_url, class: "admin_video", :controls => true) %>
+    <% elsif object.mime_type.include?("image") %>
+      <%= image_tag(object.login_background_file.login_background_file_url, class: 'admin_icon') %>
+    <% end %>
+  </div>
+</div>

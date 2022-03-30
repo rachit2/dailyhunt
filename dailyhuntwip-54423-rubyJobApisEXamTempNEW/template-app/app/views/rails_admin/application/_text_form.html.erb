@@ -1,0 +1,152 @@
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Expert*</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+    <%= select_tag "bx_block_contentmanagement_content[contentable_attributes][career_expert_id]", options_from_collection_for_select(BxBlockExperts::CareerExpert.order(:name), "id", "name", content&.career_expert_id),{ include_blank: "Select None", class: "form-control inline-w-50" }%>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Headline*</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <%= text_field_tag "bx_block_contentmanagement_content[contentable_attributes][headline]", content.present? ? content.headline : '', :class => 'form-control', required: true %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Content*</label>
+  <div class="col-sm-7">
+    <div class="align-textarea">
+      <%= text_area_tag "bx_block_contentmanagement_content[contentable_attributes][content]", content.present? ? content.content : '', :class => "tinymce", :rows => 40, :cols => 120 %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Hyperlink</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <%= text_field_tag "bx_block_contentmanagement_content[contentable_attributes][hyperlink]", content.present? ? content.hyperlink : '', :class => 'form-control'%>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <label for="" class="col-sm-1 control-label mr_top_19">Affiliation</label>
+  <div class="col-sm-7">
+    <div class="align-input">
+      <%= text_field_tag "bx_block_contentmanagement_content[contentable_attributes][affiliation]", content.present? ? content.affiliation : '', :class => 'form-control'%>
+    </div>
+  </div>
+</div>
+
+<div class="form-group row">
+  <%= label_tag "Images", nil, :class => "col-sm-2" %>
+  <div class="col-sm-7" id="img_div">
+    <div class="row">
+      <button type="button" id="add_image" class="btn btn-primary">Add Image</button>
+    </div>
+    <div class="row">
+      <span class="text_image_err_msg"></span>
+    </div>
+    <% content&.images&.each_with_index do |image, i| %>
+      <% if !image.new_record? %>
+        <div class="row margin-top">
+          <%= image_tag(image.image_url, class: "admin_icon") %>
+          <%= hidden_field_tag "bx_block_contentmanagement_content[contentable_attributes][images_attributes][#{i}][id]", image.id, :class => 'form-control'%>
+
+          <div class="row">
+            <div class="col-sm-10 show_select_div">
+              <input type='file' name="bx_block_contentmanagement_content[contentable_attributes][images_attributes][<%= i %>][image]" class="pdf_select_file"> <span id='val'></span>
+              <span id='button' class="pdf_select_button">Change</span>
+            </div>
+
+            <div class="col-sm-2">
+              <span class="btn btn-sm btn-default destroy_btn">
+                Delete
+              </span>
+              <%= hidden_field_tag "bx_block_contentmanagement_content[contentable_attributes][images_attributes][#{i}][_destroy]", false, :class => 'form-control destroy_val' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <%= hidden_field_tag "image_index", content&.images&.count %>
+  </div>
+  <br>
+</div>
+
+<div class="form-group" id= "new_image">
+  <div class="row margin-top" id= <%= "new_image_0"%>>
+    <div class="row">
+      <div class="col-sm-10 show_select_div">
+        <input type='file' name="bx_block_contentmanagement_content[contentable_attributes][images_attributes][][image]" class="pdf_select_file" id="image"> <span id='val'></span>
+        <span id='button' class="pdf_select_button">Select Image</span>
+      </div>
+      <div class="col-sm-2">
+        <span class="btn btn-sm btn-danger text-white" onclick='close_image_modal(this.id)' id= <%= "close_image_0"%>>
+          Cancel
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="form-group row">
+  <%= label_tag "videos", nil, :class => "col-sm-2" %>
+
+  <div class="col-sm-7" id="video_div">
+    <div class="row">
+      <button type="button" id="add_video" class="btn btn-primary">Add Video</button>
+    </div>
+    <div class="row">
+      <span class="text_video_err_msg"></span>
+    </div>
+    <% content&.videos&.each_with_index do |video, i| %>
+      <% if !video.new_record? %>
+        <div class="row margin-top">
+          <%= video_tag(video.video_url, class: "admin_video", :controls => true) if video.video_url %>
+          <%= hidden_field_tag "bx_block_contentmanagement_content[contentable_attributes][videos_attributes][#{i}][id]", video.id, :class => 'form-control'%>
+
+          <div class="row margin-top">
+            <div class="col-sm-10 show_select_div">
+              <input type='file' name="bx_block_contentmanagement_content[contentable_attributes][videos_attributes][<%= i %>][video]" class="pdf_select_file"> <span id='val'></span>
+              <span id='button' class="pdf_select_button">Change</span>
+            </div>
+
+            <div class="col-sm-2">
+              <span class="btn btn-sm btn-default destroy_btn">
+                Delete
+              </span>
+              <%= hidden_field_tag "bx_block_contentmanagement_content[contentable_attributes][videos_attributes][#{i}][_destroy]", false, :class => 'form-control destroy_val' %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <%= hidden_field_tag "video_index", content&.videos&.count %>
+  </div>
+</div>
+
+<div class="form-group" id= "new_video">
+  <div class="row margin-top" id= <%= "new_video_0"%>>
+    <div class="row">
+      <div class="col-sm-10 show_select_div">
+        <input type='file' name="bx_block_contentmanagement_content[contentable_attributes][videos_attributes][][video]" class="pdf_select_file" id="video"> <span id='val'></span>
+        <span id='button' class="pdf_select_button">Select Video</span>
+      </div>
+      <div class="col-sm-2">
+        <span class="btn btn-sm btn-danger text-white" onclick='close_video_modal(this.id)' id= <%= "close_video_0"%>>
+          Cancel
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<%= hidden_field_tag "video_size", content.present? ? nil : "0" %>
+
+<%= javascript_include_tag 'content_text' %>

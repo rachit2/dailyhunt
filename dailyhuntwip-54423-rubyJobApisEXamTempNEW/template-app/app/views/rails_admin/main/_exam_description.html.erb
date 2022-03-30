@@ -1,0 +1,10 @@
+<div class="form-group row">
+  <div class="col-sm-7">
+    <div class="align-textarea">
+      <%= form.text_area :description, :class => "tinymce", :rows => 40, :cols => 120 %>
+    </div>   
+  </div>
+</div>
+
+<%= tinymce_assets %>
+<%= javascript_include_tag 'tinymce_custom' %>

@@ -1,0 +1,6 @@
+<div class="custom-row">
+  <div class="custom-form-element">
+    <%= form.collection_select(:category_id, BxBlockCategories::Category.order(:name), :id, :name, {}, { class: "form-control", style: "width: 50%;", required: true}) %>
+  </div>
+</div>
+<%= javascript_include_tag 'content' %>
